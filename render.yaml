@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: guild-glory-dashboard
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DASHBOARD_PASSWORD
+        sync: false
+      - key: DB_PATH
+        value: /var/data/guild_glory.db
+    disk:
+      name: guild-glory-data
+      mountPath: /var/data
+      sizeGB: 1
